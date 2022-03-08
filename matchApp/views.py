@@ -27,10 +27,11 @@ class UploadCSVView(APIView):
         io_string = io.StringIO(decoded_file)
         # reader = csv.reader(io_string)
         reader=csv.DictReader(io_string)
+        a = 'ankit'
         for row in reader:
             print(row)
             try:
-                m=Uploadcsv.objects.get(Hsn_code=row.get('HSN/SAC Code'),user='ankit')
+                m=Uploadcsv.objects.get(Hsn_code=row.get('HSN/SAC Code'),user=a)
                 m.Rate=row.get('Rate/Unit')
                 m.Hsn_code=row.get('HSN/SAC Code')
                 m.Description=row.get('Description')
@@ -40,7 +41,7 @@ class UploadCSVView(APIView):
                 m.Per=row.get('Per')
                 m.save()
             except Uploadcsv.DoesNotExist:
-                user = Uploadcsv(Hsn_code=row.get('HSN/SAC Code'),Description=row.get('Description'),Rate=row.get('Rate/Unit'),CGst_rate=row.get('CGST Rate'),SGst_rate=row.get('SGST Rate'),IGst_rate=row.get('IGST Rate'),Per=row.get('Per'),user='krishiv')
+                user = Uploadcsv(Hsn_code=row.get('HSN/SAC Code'),Description=row.get('Description'),Rate=row.get('Rate/Unit'),CGst_rate=row.get('CGST Rate'),SGst_rate=row.get('SGST Rate'),IGst_rate=row.get('IGST Rate'),Per=row.get('Per'),user=a)
                 user.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
