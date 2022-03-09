@@ -21,9 +21,7 @@ class UploadCSVView(APIView):
         serializer = Uploadcsvserializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         file = serializer.validated_data['file']
-        
         print(file)
-
         decoded_file = file.read().decode()
         # upload_products_csv.delay(decoded_file, request.user.pk)
         io_string = io.StringIO(decoded_file)
